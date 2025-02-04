@@ -1,0 +1,2 @@
+ALTER TABLE tb_alunos
+ADD COLUMN bairro VARCHAR(255) NOT NULL;
