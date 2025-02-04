@@ -2,6 +2,8 @@ package br.com.luisvanique.controleDeMensalidades.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,21 +19,27 @@ public class Mensalidade {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn
-	private Aluno aluno;
+	@JoinColumn(name = "aluno_id")
+    private Aluno aluno;
 	
-	@Column(name = "valor")
-	private String valor;
 	
-	@Column(name = "data_vencimento")
+	@Column(name = "DATA_VENCIMENTO")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataVencimento;
 	
-	@Column(name = "status")
-	private String statusMensalidade = StatusMensalidade.PENDENTE.getDescricao();
+	@Column(name= "VALOR")
+	private Double valor;
+	
+	@Column(name = "STATUS")
+	private Integer status;
 
+	public Mensalidade(){
+		
+	}
+	
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -40,11 +48,11 @@ public class Mensalidade {
 		this.aluno = aluno;
 	}
 	
-	public String getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
@@ -56,11 +64,11 @@ public class Mensalidade {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public String getStatusMensalidade() {
-		return statusMensalidade;
+	public Integer getStatusMensalidade() {
+		return status;
 	}
 
-	public void setStatusMensalidade(String statusMensalidade) {
-		this.statusMensalidade = statusMensalidade;
+	public void setStatusMensalidade(Integer statusMensalidade) {
+		this.status = statusMensalidade;
 	}
 }

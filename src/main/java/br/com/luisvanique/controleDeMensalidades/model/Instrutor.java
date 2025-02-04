@@ -11,6 +11,12 @@ import jakarta.persistence.Table;
 @Table(name = "tb_instrutores")
 public class Instrutor extends Pessoa{
 	
+	public Instrutor(String nome, String login, String senha) {
+		super(nome);
+		this.login = login;
+		this.senha = senha;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

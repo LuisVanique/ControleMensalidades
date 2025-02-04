@@ -1,0 +1,2 @@
+ALTER TABLE tb_alunos
+ADD COLUMN data_nascimento DATE NOT NULL DEFAULT '2000-01-01';

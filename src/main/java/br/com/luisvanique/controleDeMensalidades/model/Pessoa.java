@@ -13,6 +13,15 @@ public class Pessoa {
 	
 	private LocalDate dataCriacao = LocalDate.now();
 	
+	public Pessoa(String nome) {
+		super();
+		this.nome = nome;
+	}
+
+	public Pessoa() {
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}
