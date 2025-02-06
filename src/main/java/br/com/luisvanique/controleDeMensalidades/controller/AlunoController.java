@@ -2,7 +2,6 @@ package br.com.luisvanique.controleDeMensalidades.controller;
 
 import java.net.URI;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,12 +23,8 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/aluno")
-public class AlunoController {
-
-	@Autowired
-	private AlunoService alunoService;
+public record AlunoController(AlunoService alunoService) {
 	
-
 	@GetMapping
 	public ResponseEntity<Page<AlunoDTO>> findAll(@PageableDefault Pageable pageable){
 		Page<Aluno> alunos = alunoService.findAll(pageable);
