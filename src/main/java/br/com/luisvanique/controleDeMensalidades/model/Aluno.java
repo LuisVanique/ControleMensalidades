@@ -27,9 +27,6 @@ public class Aluno extends Pessoa {
 	@Column(nullable = false)
 	private Endereco endereco;
 
-	@Column(name = "telefone", nullable = false, unique = true)
-	private String telefone;
-
 	@Column(name = "ativo", nullable = false)
 	private String ativo = "S";
 
@@ -44,16 +41,14 @@ public class Aluno extends Pessoa {
 	}
 
 	public Aluno(String nome, Endereco endereco, String telefone, LocalDate dataNascimento) {
-		super(nome);
+		super(nome, telefone);
 		this.endereco = endereco;
-		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
 	}
 
 	public Aluno(AlunoDTO alunoDto) {
-		super(alunoDto.nome());
+		super(alunoDto.nome(), alunoDto.telefone());
 		this.endereco = alunoDto.endereco().toEndereco();
-		this.telefone = alunoDto.telefone();
 		this.dataNascimento = alunoDto.dataNascimento();
 	}
 	
@@ -75,14 +70,6 @@ public class Aluno extends Pessoa {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getAtivo() {

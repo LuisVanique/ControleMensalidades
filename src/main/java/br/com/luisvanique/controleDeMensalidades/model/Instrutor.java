@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 @Table(name = "tb_instrutores")
 public class Instrutor extends Pessoa{
 	
-	public Instrutor(String nome, String login, String senha) {
-		super(nome);
+	public Instrutor(String nome, String login, String senha, String telefone) {
+		super(nome, telefone);
 		this.login = login;
 		this.senha = senha;
 	}
