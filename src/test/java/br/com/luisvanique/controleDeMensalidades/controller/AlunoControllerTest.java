@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,8 @@ public class AlunoControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 	
-	@BeforeEach
-	public void deleteDB() {
+	@AfterEach
+	public void afterDeleteDB() {
 		repository.deleteAll();
 	}
 
