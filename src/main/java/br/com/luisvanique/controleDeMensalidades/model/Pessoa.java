@@ -11,13 +11,25 @@ public class Pessoa {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@Column(name = "telefone", nullable = false, unique = true)
+	private String telefone;
+
 	private LocalDate dataCriacao = LocalDate.now();
 	
-	public Pessoa(String nome) {
+	public Pessoa(String nome, String telefone) {
 		super();
 		this.nome = nome;
+		this.telefone = telefone;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	
 	public Pessoa() {
 		
 	}
