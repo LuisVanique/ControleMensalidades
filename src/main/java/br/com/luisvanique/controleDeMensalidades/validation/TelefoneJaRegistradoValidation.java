@@ -4,26 +4,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.luisvanique.controleDeMensalidades.dto.AlunoDTO;
+import br.com.luisvanique.controleDeMensalidades.dto.InstrutorDto;
 import br.com.luisvanique.controleDeMensalidades.exception.TelefoneJaCadastradoException;
 import br.com.luisvanique.controleDeMensalidades.model.Aluno;
 import br.com.luisvanique.controleDeMensalidades.repository.AlunoRepository;
+import br.com.luisvanique.controleDeMensalidades.repository.InstrutorRepository;
 
 @Component
-public class TelefoneJaRegistradoValidation implements ICreateUserValidator, IUpdateUserValidator {
+public class TelefoneJaRegistradoValidation implements ICreateAlunoValidator, IUpdateAlunoValidator, ICreateInstrutorValidator {
 
 	@Autowired
-	private AlunoRepository repository;
+	private AlunoRepository alunoRepository;
+	
+	@Autowired
+	private InstrutorRepository instrutorRepository;
 
 	@Override
 	public void validator(AlunoDTO dto) {
-		if (repository.existsByTelefone(dto.telefone()))
+		if (alunoRepository.existsByTelefone(dto.telefone()))
 			throw new TelefoneJaCadastradoException("O Telefone já foi registrado no sistema!");
 	}
 
 	@Override
 	public void validator(AlunoDTO alunoDTO, Aluno alunoAtual) {
 		if (!alunoDTO.telefone().equals(alunoAtual.getTelefone()) 
-				&& repository.existsByTelefone(alunoDTO.telefone())) 
+				&& alunoRepository.existsByTelefone(alunoDTO.telefone())) 
 			throw new TelefoneJaCadastradoException("O Telefone já foi cadastrado no sistema!");
+	}
+
+	@Override
+	public void validator(InstrutorDto dto) {
+		if (instrutorRepository.existsByTelefone(dto.telefone()))
+			throw new TelefoneJaCadastradoException("O Telefone já foi registrado no sistema!");
 	}
 }

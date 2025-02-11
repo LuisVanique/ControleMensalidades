@@ -27,11 +27,13 @@ public record AlunoDTO(
 		LocalDate dataNascimento,
 	
 		@Valid
-		EnderecoDTO endereco
+		EnderecoDTO endereco,
+		
+		String ativo
 		) {
 
 	public AlunoDTO(Aluno aluno) {
-		this(aluno.getId(), aluno.getNome(), aluno.getTelefone(), aluno.getDataNascimento(), new EnderecoDTO(aluno.getEndereco()));
+		this(aluno.getId(), aluno.getNome(), aluno.getTelefone(), aluno.getDataNascimento(), new EnderecoDTO(aluno.getEndereco()),  aluno.getAtivo());
 	}
 		
 		
