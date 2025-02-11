@@ -132,6 +132,23 @@ public class AlunoControllerTest {
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 	}
 	
+	@Test
+	@DisplayName("Deve reativar um aluno e o ativo ficar como S")
+	public void deveReativarAluno() throws Exception {
+		Aluno aluno = instanciaAluno();
+		repository.saveAndFlush(aluno);
+		
+		RequestBuilder request = put(endpoint + "/reativar/" + aluno.getId());
+		
+		MockHttpServletResponse response = mvc.perform(request).andReturn().getResponse();
+		
+		Aluno alunoPosRequest = repository.findById(aluno.getId()).orElseThrow();
+		
+		assertThat(alunoPosRequest.getAtivo()).isEqualTo("S");
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+		
+	}
+	
 	private Aluno instanciaAluno() {
 		String nome = "Luis";
 		String telefone = "11952925758";

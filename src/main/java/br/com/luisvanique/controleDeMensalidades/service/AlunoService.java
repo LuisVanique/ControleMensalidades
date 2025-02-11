@@ -11,8 +11,8 @@ import br.com.luisvanique.controleDeMensalidades.dto.AlunoDTO;
 import br.com.luisvanique.controleDeMensalidades.exception.ObjectNotFoundException;
 import br.com.luisvanique.controleDeMensalidades.model.Aluno;
 import br.com.luisvanique.controleDeMensalidades.repository.AlunoRepository;
-import br.com.luisvanique.controleDeMensalidades.validation.ICreateUserValidator;
-import br.com.luisvanique.controleDeMensalidades.validation.IUpdateUserValidator;
+import br.com.luisvanique.controleDeMensalidades.validation.ICreateAlunoValidator;
+import br.com.luisvanique.controleDeMensalidades.validation.IUpdateAlunoValidator;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -22,10 +22,10 @@ public class AlunoService {
 	private AlunoRepository alunoRepository;
 	
 	@Autowired
-	private List<ICreateUserValidator> createUserValidator;
+	private List<ICreateAlunoValidator> createUserValidator;
 	
 	@Autowired
-	private List<IUpdateUserValidator> updateUserValidator;
+	private List<IUpdateAlunoValidator> updateUserValidator;
 	
 	@Transactional
 	public Aluno create(AlunoDTO alunoDto) {
@@ -61,5 +61,13 @@ public class AlunoService {
 	    BeanUtils.copyProperties(alunoDTO, alunoAtual, "id");
 
 	    alunoRepository.save(alunoAtual);
+	}
+
+	@Transactional
+	public void reativar(Long id) {
+		Aluno aluno = findById(id);
+		aluno.setAtivo("S");
+		alunoRepository.save(aluno);
+		
 	}
 }

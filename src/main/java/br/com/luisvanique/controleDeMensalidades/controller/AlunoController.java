@@ -62,5 +62,13 @@ public record AlunoController(AlunoService alunoService) {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PutMapping("/reativar/{id}")
+	public ResponseEntity<Void> reativar(@PathVariable Long id){
+		alunoService.reativar(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	
+	
 	
 }
