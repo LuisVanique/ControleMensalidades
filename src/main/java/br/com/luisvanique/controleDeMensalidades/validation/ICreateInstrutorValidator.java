@@ -5,4 +5,7 @@ import br.com.luisvanique.controleDeMensalidades.dto.InstrutorDto;
 public interface ICreateInstrutorValidator {
 	
 	public void validator(InstrutorDto dto);
+
+	
+
 }

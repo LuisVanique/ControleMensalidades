@@ -19,8 +19,8 @@ public class Mensalidade {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
+	private Long id;
+
 	@ManyToOne
 	@JoinColumn(name = "aluno_id")
     private Aluno aluno;
@@ -36,10 +36,26 @@ public class Mensalidade {
 	@Column(name = "STATUS")
 	private Integer status;
 
+	
+
 	public Mensalidade(){
 		
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public Mensalidade(Aluno aluno, LocalDate dataVencimento, Double valor, Integer status) {
+		super();
+		this.aluno = aluno;
+		this.dataVencimento = dataVencimento;
+		this.valor = valor;
+		this.status = status;
+	}
+
+
+
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -70,5 +86,13 @@ public class Mensalidade {
 
 	public void setStatusMensalidade(Integer statusMensalidade) {
 		this.status = statusMensalidade;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

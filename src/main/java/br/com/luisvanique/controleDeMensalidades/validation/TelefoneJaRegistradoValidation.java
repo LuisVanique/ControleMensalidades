@@ -7,11 +7,12 @@ import br.com.luisvanique.controleDeMensalidades.dto.AlunoDTO;
 import br.com.luisvanique.controleDeMensalidades.dto.InstrutorDto;
 import br.com.luisvanique.controleDeMensalidades.exception.TelefoneJaCadastradoException;
 import br.com.luisvanique.controleDeMensalidades.model.Aluno;
+import br.com.luisvanique.controleDeMensalidades.model.Instrutor;
 import br.com.luisvanique.controleDeMensalidades.repository.AlunoRepository;
 import br.com.luisvanique.controleDeMensalidades.repository.InstrutorRepository;
 
 @Component
-public class TelefoneJaRegistradoValidation implements ICreateAlunoValidator, IUpdateAlunoValidator, ICreateInstrutorValidator {
+public class TelefoneJaRegistradoValidation implements ICreateAlunoValidator, IUpdateAlunoValidator, ICreateInstrutorValidator, IUpdateInstrutorValidator {
 
 	@Autowired
 	private AlunoRepository alunoRepository;
@@ -36,5 +37,12 @@ public class TelefoneJaRegistradoValidation implements ICreateAlunoValidator, IU
 	public void validator(InstrutorDto dto) {
 		if (instrutorRepository.existsByTelefone(dto.telefone()))
 			throw new TelefoneJaCadastradoException("O Telefone já foi registrado no sistema!");
+	}
+	
+	@Override
+	public void validator(InstrutorDto instrutorDto, Instrutor instrutor) {
+		if (!instrutorDto.telefone().equals(instrutor.getTelefone()) 
+				&& alunoRepository.existsByTelefone(instrutorDto.telefone())) 
+			throw new TelefoneJaCadastradoException("O Telefone já foi cadastrado no sistema!");
 	}
 }

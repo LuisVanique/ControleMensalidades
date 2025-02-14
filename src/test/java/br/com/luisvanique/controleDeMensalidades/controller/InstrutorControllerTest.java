@@ -2,6 +2,7 @@ package br.com.luisvanique.controleDeMensalidades.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -87,6 +88,26 @@ public class InstrutorControllerTest {
 		
 		assertThat(response.getContentAsString()).contains("O Telefone já foi registrado no sistema!");
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+	}
+	
+	@Test
+	@DisplayName("Deve Atualizar Instrutor válido e retornar 200 OK")
+	public void deveAtualizarInstrutor() throws Exception {
+		Instrutor instrutor = instanciaInstrutor();
+		instrutorRepository.saveAndFlush(instrutor);
+		instrutor.setNome("Teste!");
+		InstrutorDto instrutorDto = new InstrutorDto(instrutor);
+		String jsonString = objectMapper.writeValueAsString(instrutorDto);
+		
+		RequestBuilder request = put(endpoint + "/" + instrutor.getId()).contentType(MediaType.APPLICATION_JSON).
+				content(jsonString);
+		
+		MockHttpServletResponse response = mvc.perform(request).andReturn().getResponse();
+		
+		Instrutor instrutorPosRequest = instrutorRepository.findById(instrutor.getId()).orElseThrow();
+		
+		assertThat(instrutorPosRequest.getNome()).isEqualTo("Teste!");
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 	}
 
 	private Instrutor instanciaInstrutor() {
