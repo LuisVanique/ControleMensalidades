@@ -24,7 +24,7 @@ public class Parametro {
 	private String valorParametro;
 
 	@Column(name = "ativo")
-	private String ativo = "N";
+	private String ativo = "S";
 
 	public Parametro(){
 		
