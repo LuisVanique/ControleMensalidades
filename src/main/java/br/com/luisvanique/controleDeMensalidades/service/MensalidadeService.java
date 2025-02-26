@@ -36,6 +36,10 @@ public class MensalidadeService {
 		mensalidade.setStatus(StatusMensalidade.PAGA.getStatus());
 		mensalidadeRepository.save(mensalidade);
 	}
+	
+	public static Mensalidade gerarMensalidadeAluno(Aluno aluno) {
+		return new Mensalidade(aluno, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth().plus(1), 20), 50.00, 1);
+	}
 
 	@Scheduled(cron = "0 0 0 20 * ?")
 	public void gerarMensalidades() {
