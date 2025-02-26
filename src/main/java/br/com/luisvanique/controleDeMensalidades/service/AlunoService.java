@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import br.com.luisvanique.controleDeMensalidades.dto.AlunoDTO;
 import br.com.luisvanique.controleDeMensalidades.exception.ObjectNotFoundException;
 import br.com.luisvanique.controleDeMensalidades.model.Aluno;
+import br.com.luisvanique.controleDeMensalidades.model.Mensalidade;
 import br.com.luisvanique.controleDeMensalidades.repository.AlunoRepository;
+import br.com.luisvanique.controleDeMensalidades.repository.MensalidadeRepository;
 import br.com.luisvanique.controleDeMensalidades.validation.ICreateAlunoValidator;
 import br.com.luisvanique.controleDeMensalidades.validation.IUpdateAlunoValidator;
 import jakarta.transaction.Transactional;
@@ -27,12 +29,18 @@ public class AlunoService {
 	@Autowired
 	private List<IUpdateAlunoValidator> updateUserValidator;
 	
+	@Autowired
+	private MensalidadeRepository mensalidadeRepository;
+
+	
 	@Transactional
 	public Aluno create(AlunoDTO alunoDto) {
 		createUserValidator.forEach(validator -> validator.validator(alunoDto));
 
 		Aluno aluno = new Aluno(alunoDto);
+		Mensalidade mensalidade = MensalidadeService.gerarMensalidadeAluno(aluno);
 		alunoRepository.save(aluno);
+		mensalidadeRepository.save(mensalidade);
 		return aluno;
 	}
 
